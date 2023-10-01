@@ -17,10 +17,10 @@ public class VaccineTypeEntity {
 	@Column(name = "VACCINE_TYPE_ID", length=36)
 	private String vaccineTypeId;
 
-	@Column(name = "DESCRIPTION", length=200)
+	@Column(name = "DESCRIPTION", length=200, columnDefinition = "NVARCHAR(200)")
 	private String description;
 
-	@Column(name = "VACCINE_TYPE_NAME", length=50)
+	@Column(name = "VACCINE_TYPE_NAME", length=50, columnDefinition = "NVARCHAR(50)")
 	private String vaccineTypeName;
 
 	@OneToMany(mappedBy = "vaccineTypeEntity")

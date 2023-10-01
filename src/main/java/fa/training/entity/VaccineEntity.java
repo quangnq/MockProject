@@ -18,16 +18,16 @@ public class VaccineEntity {
 	@Column(name = "VACCINE_ID", length=36)
 	private String vaccineId;
 
-	@Column(name = "CONTRAINDICATION", length=200)
+	@Column(name = "CONTRAINDICATION", length=200, columnDefinition = "NVARCHAR(200)")
 	private String contraindication;
 
-	@Column(name = "INDICATION", length=200)
+	@Column(name = "INDICATION", length=200, columnDefinition = "NVARCHAR(200)")
 	private String indication;
 
 	@Column(name = "NUMBER_OF_INJECTION")
 	private int numberOfInjection;
 
-	@Column(name = "ORIGIN", length=50)
+	@Column(name = "ORIGIN", length=50, columnDefinition = "NVARCHAR(50)")
 	private String origin;
 
 	@Column(name = "TIME_BEGIN_NEXT_INJECTION")
@@ -36,10 +36,10 @@ public class VaccineEntity {
 	@Column(name = "TIME_END_NEXT_INJECTION")
 	private LocalDate timeEndNextInjection;
 
-	@Column(name = "USAGE", length=200)
+	@Column(name = "USAGE", length=200, columnDefinition = "NVARCHAR(200)")
 	private String usage;
 
-	@Column(name = "VACCINE_NAME", length=100)
+	@Column(name = "VACCINE_NAME", length=100, columnDefinition = "NVARCHAR(100)")
 	private String vaccineName;
 
 	@ManyToOne(cascade = { CascadeType.ALL })

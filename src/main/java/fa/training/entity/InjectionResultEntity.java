@@ -24,16 +24,16 @@ public class InjectionResultEntity {
 	@Column(name = "INJECTION_DATE")
 	private LocalDate injectionDate;
 
-	@Column(name = "INJECTION_PLACE", length=255)
+	@Column(name = "INJECTION_PLACE", length=255, columnDefinition = "NVARCHAR(255)")
 	private String injectionPlace;
 
 	@Column(name = "NEXT_INJECTION_DATE")
 	private LocalDate nextInjectionDate;
 
-	@Column(name = "NUMBER_OF_INJECTION", length=100)
+	@Column(name = "NUMBER_OF_INJECTION", length=100, columnDefinition = "NVARCHAR(100)")
 	private int numberOfInjection;
 
-	@Column(name = "PREVENTION", length=100)
+	@Column(name = "PREVENTION", length=100, columnDefinition = "NVARCHAR(100)")
 	private String prevention;
 
 	@ManyToOne(cascade = { CascadeType.ALL })

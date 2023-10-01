@@ -1,6 +1,9 @@
 package fa.training.service;
 
+import fa.training.dto.InjectionResultReportDto;
+import fa.training.dto.VaccineTypeDto;
 import fa.training.entity.InjectionResultEntity;
+import fa.training.entity.VaccineTypeEntity;
 import fa.training.repository.InjectionResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +18,8 @@ public class InjectionResultService {
     InjectionResultRepository injectionResultRepository;
 
     @Transactional
-    public List<InjectionResultEntity> findAll() {
-        return injectionResultRepository.findAll();
+    public List<InjectionResultReportDto> findAll() {
+        List<InjectionResultEntity> entityList = injectionResultRepository.findAll();
+        return InjectionResultReportDto.cloneFromEntityList(entityList);
     }
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -168,10 +169,10 @@
                   <div class="wrapper-input">
 
                     <select class="form-select select-chart" name="year" id="Vaccine">
-                      <option selected>--Select vaccine</option>
-                      <option value="2019">2019</option>
-                      <option value="2020">2020</option>
-                      <option value="2021">2021</option>
+                        <option selected>--Select vaccine</option>
+                      <c:forEach var="vaccineTypeDto" items="${vaccineTypeDtoList}">
+                        <option value="${vaccineTypeDto.vaccineTypeId}"><c:out value = "${vaccineTypeDto.vaccineTypeName}"/></option>
+                      </c:forEach>
                     </select>
                   </div>
                 </div>
@@ -203,68 +204,21 @@
                     <th>Date of Inject</th>
                     <th>Num of Inject</th>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Vaccine 1</td>
-                    <td>Viêm não Nhật Bản</td>
-                    <td>Đà Nẵng</td>
-                    <td>12/12/2017</td>
-                    <td>12</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Vaccine 1</td>
-                    <td>Viêm não Nhật Bản</td>
-                    <td>Đà Nẵng</td>
-                    <td>12/12/2017</td>
-                    <td>12</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Vaccine 1</td>
-                    <td>Viêm não Nhật Bản</td>
-                    <td>Đà Nẵng</td>
-                    <td>12/12/2017</td>
-                    <td>12</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Vaccine 1</td>
-                    <td>Viêm não Nhật Bản</td>
-                    <td>Đà Nẵng</td>
-                    <td>12/12/2017</td>
-                    <td>12</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Vaccine 1</td>
-                    <td>Viêm não Nhật Bản</td>
-                    <td>Đà Nẵng</td>
-                    <td>12/12/2017</td>
-                    <td>12</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Vaccine 1</td>
-                    <td>Viêm não Nhật Bản</td>
-                    <td>Đà Nẵng</td>
-                    <td>12/12/2017</td>
-                    <td>12</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Vaccine 1</td>
-                    <td>Viêm não Nhật Bản</td>
-                    <td>Đà Nẵng</td>
-                    <td>12/12/2017</td>
-                    <td>12</td>
-                  </tr>
-                  
-                  </tr>
+                  <c:forEach var="injectionResultReportDto" items="${injectionResultReportDtoList}">
+                    <tr>
+                        <td>${injectionResultReportDto.injectionResultId}</td>
+                        <td>${injectionResultReportDto.vaccineEntity.vaccineName}</td>
+                        <td>${injectionResultReportDto.prevention}</td>
+                        <td>${injectionResultReportDto.customerEntity.fullName}</td>
+                        <td>${injectionResultReportDto.injectionDate}</td>
+                        <td>${injectionResultReportDto.numberOfInjection}</td>
+                    </tr>
+                   </c:forEach>
+
                 </table>
                 <div class="pagination">
                   <span class="text-pagination">
-                    Showing 1 to 5 of 7 entries
+                    Showing 1 to 5 of <c:out value = "${fn:length(injectionResultReportDtoList)}"/> entries
                   </span>
                   <div class="pagination-list">
                     <div class="pagination-item prev">
