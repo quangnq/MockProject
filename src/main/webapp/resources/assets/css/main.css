@@ -1,0 +1,269 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+@media (min-width: 1400px){
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1474px;
+}}
+
+
+.header {
+  background-color: #009687;
+  padding: 18px 0;
+}
+
+.content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon-search {
+  color: white;
+}
+
+.main {
+  background-color: #e9e9e9;
+  height: calc(100vh - 62.75px);
+}
+
+.info-user {
+  padding: 8px 12px;
+  background: url(../img/anhbia.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+h4.name-user {
+  color: white;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.avatar-user img {
+  border-radius: 50%;
+}
+
+.email-user {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  align-items: center;
+  font-size: 13px;
+}
+
+h5.text-email {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+}
+.menu {
+  display: none;
+  background-color: white;
+  outline: 3px solid #dddddd;
+}
+
+.menu.active{
+  display: block;
+}
+
+ul.menu-list {
+  padding: 0;
+  list-style: none;
+  max-height: 410px;
+  overflow-y: auto;
+}
+
+a.menu-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  padding: 12px;
+  justify-content: space-between;
+}
+
+a.menu-link:hover {
+  color: #009687;
+}
+
+a.menu-link.active {
+  color: #009687;
+}
+
+/* width */
+ul.menu-list::-webkit-scrollbar {
+  display: none;
+}
+
+.chart-display,
+.report-display,
+.report-chart,
+.report-table {
+  display: none;
+}
+
+.chart-display.active,
+.report-chart.active,
+.report-table.active {
+  display: block;
+}
+
+
+.report-display.active{
+  display: flex;
+}
+h1.heading-content {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.content-top {
+  background: white;
+  padding: 28px;
+  outline: 3px solid #dddddd;
+}
+
+.content-top {
+  display: flex;
+  align-items: flex-start;
+}
+
+h3.text-display-type {
+  font-size: 14px;
+}
+
+.display-type {
+  font-size: 14px;
+}
+
+select#year {
+  width: 200px;
+}
+
+.chart-display {
+  font-size: 14px;
+  margin-left: 48px;
+}
+
+.chart-display label {
+  font-weight: 500;
+}
+
+.report-chart {
+  background: white;
+  margin-top: 15px;
+  outline: 3px solid #dddddd;
+}
+
+h3.text-report-chart {
+  font-size: 20px;
+  padding: 20px;
+  border-bottom: 1px solid #0000003d;
+}
+.report-table {
+  background: white;
+  outline: 3px solid #dddddd;
+  padding: 30px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  outline: 1px solid #F1F1F1;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #F4F4F4;
+}
+
+th {
+  background-color: #009687;
+  text-align: center;
+  color: white;
+}
+
+.pagination {
+  justify-content: space-between;
+  margin-top: 55px;
+}
+
+span.text-pagination {
+  font-size: 15px;
+  line-height: 39px;
+}
+
+.pagination-list {
+  display: flex;
+}
+
+.pagination-item, .pagination-prev, .pagination-next{
+  width: 40px;
+  padding: 8px 0;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.pagination-item.active{
+  background-color: #1C94F1;
+  color: white;
+}
+
+
+.report-display {
+    margin-left: 46px;
+    gap: 20px;
+
+}
+
+.wrapper-input {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+
+
+.wrapper-input label {
+  font-weight: 600;
+}
+
+.form-control {
+  width: 124px;
+}
+
+button {
+  padding: 6px 15px;
+  border: none;
+  background: #099684;
+  border-radius: 4px;
+  font-size: 16px;
+  color: white;
+  font-weight: 600;
+}
+
+h6.title-input {
+  font-size: 14px;
+}
+
+.icon-email {
+  padding: 0 8px;
+  cursor: pointer;
+}
+
+
+
