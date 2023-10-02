@@ -32,7 +32,7 @@ public class ReportsController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String reportTotal(Model model) {
-        System.out.println("-------------INJECTION_RESULT------------------");
+//        System.out.println("-------------INJECTION_RESULT------------------");
         List<InjectionResultReportDto> injectionResultReportDtoList = injectionResultService.findAll();
 //        injectionResultReportDtoList.forEach(e -> {
 //            System.out.println("-------------------------------");

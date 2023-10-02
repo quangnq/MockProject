@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -216,9 +218,17 @@
                    </c:forEach>
 
                 </table>
+                <c:set var="recordsOfPage" value="${5}" />
+                <c:set var="totalRecords" value="${injectionResultReportDtoList.size()}" />
+                <fmt:parseNumber var = "totalPages" integerOnly = "true" type = "number" value = "${totalRecords / recordsOfPage}" />
+                <c:if test = "${totalRecords % recordsOfPage > 0}">
+                    <c:set var="totalPages" value="${totalPages + 1}" />
+                </c:if>
+
                 <div class="pagination">
+
                   <span class="text-pagination">
-                    Showing 1 to 5 of <c:out value = "${fn:length(injectionResultReportDtoList)}"/> entries
+                    Showing 1 to <c:out value = "${recordsOfPage}"/> of <c:out value = "${totalRecords}"/> entries
                   </span>
                   <div class="pagination-list">
                     <div class="pagination-item prev">
@@ -227,9 +237,11 @@
                     <div class="pagination-item active">
                       <span>1</span>
                     </div>
-                    <div class="pagination-item">
-                      <span>2</span>
-                    </div>
+                    <c:forEach var = "i" begin = "2" end = "${totalPages}">
+                      <div class="pagination-item">
+                        <span>${i}</span>
+                      </div>
+                    </c:forEach>
                     <div class="pagination-item">
                       <span><i class="fa-solid fa-angles-right"></i></span>
                     </div>
