@@ -29,7 +29,22 @@
 <body>
   <div class="header">
     <div class="container">
-
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="content-header">
+            <div class="logo">
+              <a href="#">
+                <img src="<c:url value="/resources/assets/img/logo.png" />" alt="" width="40" />
+              </a>
+            </div>
+            <div class="icon-search">
+              <span>
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <section class="vh-100">
