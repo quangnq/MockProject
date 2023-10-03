@@ -118,53 +118,55 @@
 									<option value="2021">2021</option>
 								</select>
 							</div>
-							<div class="report-display">
-								<div class="group-input">
-									<h6 class="title-input">Next injection date:</h6>
-									<div class="wrapper-input">
+							<form id="filter-form">
+								<div class="report-display">
+									<div class="group-input">
+										<h6 class="title-input">Next injection date:</h6>
+										<div class="wrapper-input">
 
-										<label for="from-date">Begin:</label> <input id="from-date"
-											type="date" class="form-control" />
+											<label for="from-date">Begin:</label> <input id="from-date"
+												type="date" class="form-control" />
+										</div>
+									</div>
+									<div class="group-input">
+										<h6 class="title-input">ㅤ</h6>
+										<div class="wrapper-input">
+
+											<label for="to-date">End:</label> <input id="to-date"
+												type="date" class="form-control" />
+										</div>
+									</div>
+
+									<div class="group-input">
+										<h6 class="title-input">Vaccine type:</h6>
+										<div class="wrapper-input">
+
+											<select class="form-select select-chart" name="year"
+												id="Vaccine">
+												<option selected>--Select vaccine</option>
+												<option value="2019">2019</option>
+												<option value="2020">2020</option>
+												<option value="2021">2021</option>
+											</select>
+										</div>
+									</div>
+									<div class="group-input">
+										<h6 class="title-input">Origin:</h6>
+										<div class="wrapper-input">
+
+											<input id="Origin" type="text" class="form-control" />
+										</div>
+									</div>
+									<div class="group-input">
+										<h6 class="title-input">Action:</h6>
+										<div class="wrapper-input">
+
+											<button type="reset">Reset</button>
+											<button type="submit" style="margin-left: 8px;">Filter</button>
+										</div>
 									</div>
 								</div>
-								<div class="group-input">
-									<h6 class="title-input">ㅤ</h6>
-									<div class="wrapper-input">
-
-										<label for="to-date">End:</label> <input id="to-date"
-											type="date" class="form-control" />
-									</div>
-								</div>
-
-								<div class="group-input">
-									<h6 class="title-input">Vaccine type:</h6>
-									<div class="wrapper-input">
-
-										<select class="form-select select-chart" name="year"
-											id="Vaccine">
-											<option selected>--Select vaccine</option>
-											<option value="2019">2019</option>
-											<option value="2020">2020</option>
-											<option value="2021">2021</option>
-										</select>
-									</div>
-								</div>
-								<div class="group-input">
-									<h6 class="title-input">Origin:</h6>
-									<div class="wrapper-input">
-
-										<input id="Origin" type="text" class="form-control" />
-									</div>
-								</div>
-								<div class="group-input">
-									<h6 class="title-input">Action:</h6>
-									<div class="wrapper-input">
-
-										<button type="reset">Reset</button>
-										<button style="margin-left: 8px;">Filter</button>
-									</div>
-								</div>
-							</div>
+							</form>
 						</div>
 						<div class="content-bottom">
 							<div class="report-chart">
@@ -264,181 +266,192 @@
 	<script src="<c:url value="/resources/assets/js/chart.js"/>"></script>
 
 	<script>
-      const ctx = document.getElementById("myChart");
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-          ],
-          datasets: [
-            {
-              label: "",
-              data: [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 4, 1],
-              borderWidth: 1,
-              borderColor: "#7EDCE9",
-              backgroundColor: "#7EDCE9",
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-          plugins: {
-            legend: {
-              display: false, // Ẩn chú thích (label)
-            },
-          },
-          layout: {
-            padding: 20,
-          },
-        },
-      });
-    </script>
+		const ctx = document.getElementById("myChart");
+		new Chart(ctx, {
+			type : "bar",
+			data : {
+				labels : [ "January", "February", "March", "April", "May",
+						"June", "July", "August", "September", "October",
+						"November", "December", ],
+				datasets : [ {
+					label : "",
+					data : [ 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 4, 1 ],
+					borderWidth : 1,
+					borderColor : "#7EDCE9",
+					backgroundColor : "#7EDCE9",
+				}, ],
+			},
+			options : {
+				scales : {
+					y : {
+						beginAtZero : true,
+					},
+				},
+				plugins : {
+					legend : {
+						display : false, // Ẩn chú thích (label)
+					},
+				},
+				layout : {
+					padding : 20,
+				},
+			},
+		});
+	</script>
 	<script src="<c:url value="/resources/assets/js/main.js"/>"></script>
 	<script>
-	document.addEventListener("DOMContentLoaded", function () {
-		  const table = document.getElementById("table-id");
-		  const paginationContainer = document.getElementById("pagination-container");
+		document
+				.addEventListener(
+						"DOMContentLoaded",
+						function() {
+							const table = document.getElementById("table-id");
+							const paginationContainer = document
+									.getElementById("pagination-container");
 
-		  // Số hàng trên mỗi trang
-		  const rowsPerPage = 5;
+							// Số hàng trên mỗi trang
+							const rowsPerPage = 5;
 
-		  // Trang hiện tại
-		  let currentPage = 1;
+							// Trang hiện tại
+							let currentPage = 1;
 
-		  // Tính tổng số trang
-		  const totalRows = table.querySelectorAll("tbody tr").length;
-		  const totalPages = Math.ceil(totalRows / rowsPerPage);
+							// Tính tổng số trang
+							const totalRows = table
+									.querySelectorAll("tbody tr").length;
+							const totalPages = Math.ceil(totalRows
+									/ rowsPerPage);
 
-		  // Hiển thị trang đầu tiên ban đầu
-		  showPage(currentPage);
+							// Hiển thị trang đầu tiên ban đầu
+							showPage(currentPage);
 
-		  // Hàm để hiển thị trang cụ thể
-		  function showPage(page) {
-		    currentPage = page;
+							// Hàm để hiển thị trang cụ thể
+							function showPage(page) {
+								currentPage = page;
 
-		    // Tính vị trí bắt đầu và kết thúc của trang
-		    const startIndex = (page - 1) * rowsPerPage;
-		    const endIndex = startIndex + rowsPerPage;
+								// Tính vị trí bắt đầu và kết thúc của trang
+								const startIndex = (page - 1) * rowsPerPage;
+								const endIndex = startIndex + rowsPerPage;
 
-		    // Ẩn tất cả các hàng trong phần tbody
-		    const tbodyRows = table.querySelectorAll("tbody tr");
-		    tbodyRows.forEach(function (row, index) {
-		      if (index >= startIndex && index < endIndex) {
-		        row.style.display = "table-row";
-		      } else {
-		        row.style.display = "none";
-		      }
-		    });
+								// Ẩn tất cả các hàng trong phần tbody
+								const tbodyRows = table
+										.querySelectorAll("tbody tr");
+								tbodyRows
+										.forEach(function(row, index) {
+											if (index >= startIndex
+													&& index < endIndex) {
+												row.style.display = "table-row";
+											} else {
+												row.style.display = "none";
+											}
+										});
 
-		    // Tạo và cập nhật nút pagination
-		    updatePagination();
-		  }
+								// Tạo và cập nhật nút pagination
+								updatePagination();
+							}
 
-		// Hàm để cập nhật nút pagination
-		  function updatePagination() {
-		    paginationContainer.innerHTML = ""; // Xóa nội dung cũ
+							// Hàm để cập nhật nút pagination
+							function updatePagination() {
+								paginationContainer.innerHTML = ""; // Xóa nội dung cũ
 
-		    // Tạo nút "Previous"
-		    const prevButton = document.createElement("div");
-		    prevButton.classList.add("pagination-item", "prev");
-		    prevButton.innerHTML = `<span><i class="fa-solid fa-angles-left"></i></span>`;
-		    prevButton.addEventListener("click", function () {
-		      if (currentPage > 1) {
-		        showPage(currentPage - 1);
-		      }
-		    });
-		    paginationContainer.appendChild(prevButton);
+								// Tạo nút "Previous"
+								const prevButton = document
+										.createElement("div");
+								prevButton.classList.add("pagination-item",
+										"prev");
+								prevButton.innerHTML = `<span><i class="fa-solid fa-angles-left"></i></span>`;
+								prevButton.addEventListener("click",
+										function() {
+											if (currentPage > 1) {
+												showPage(currentPage - 1);
+											}
+										});
+								paginationContainer.appendChild(prevButton);
 
-		    // Tạo nút cho từng trang
-		    const maxVisiblePages = 5; // Số trang tối đa có thể hiển thị
-		    const halfVisiblePages = Math.floor(maxVisiblePages / 2);
-		    const firstVisiblePage = Math.max(currentPage - halfVisiblePages, 1);
-		    const lastVisiblePage = Math.min(currentPage + halfVisiblePages, totalPages);
+								// Tạo nút cho từng trang
+								const maxVisiblePages = 5; // Số trang tối đa có thể hiển thị
+								const halfVisiblePages = Math
+										.floor(maxVisiblePages / 2);
+								const firstVisiblePage = Math.max(currentPage
+										- halfVisiblePages, 1);
+								const lastVisiblePage = Math.min(currentPage
+										+ halfVisiblePages, totalPages);
 
-		    if (firstVisiblePage > 1) {
-		      // Add ellipsis if not on the first page
-		      const ellipsisButton = document.createElement("div");
-		      ellipsisButton.classList.add("pagination-item");
-		      ellipsisButton.textContent = "...";
-		      paginationContainer.appendChild(ellipsisButton);
-		    }
+								if (firstVisiblePage > 1) {
+									// Add ellipsis if not on the first page
+									const ellipsisButton = document
+											.createElement("div");
+									ellipsisButton.classList
+											.add("pagination-item");
+									ellipsisButton.textContent = "...";
+									paginationContainer
+											.appendChild(ellipsisButton);
+								}
 
-		    for (let page = firstVisiblePage; page <= lastVisiblePage; page++) {
-		      const pageButton = document.createElement("div");
-		      pageButton.classList.add("pagination-item");
-		      pageButton.textContent = page;
-		      pageButton.addEventListener("click", function () {
-		        showPage(page);
-		      });
-		      if (page === currentPage) {
-		        pageButton.classList.add("active");
-		      }
-		      paginationContainer.appendChild(pageButton);
-		    }
+								for (let page = firstVisiblePage; page <= lastVisiblePage; page++) {
+									const pageButton = document
+											.createElement("div");
+									pageButton.classList.add("pagination-item");
+									pageButton.textContent = page;
+									pageButton.addEventListener("click",
+											function() {
+												showPage(page);
+											});
+									if (page === currentPage) {
+										pageButton.classList.add("active");
+									}
+									paginationContainer.appendChild(pageButton);
+								}
 
-		    if (lastVisiblePage < totalPages) {
-		      // Add ellipsis if not on the last page
-		      const ellipsisButton = document.createElement("div");
-		      ellipsisButton.classList.add("pagination-item");
-		      ellipsisButton.textContent = "...";
-		      paginationContainer.appendChild(ellipsisButton);
-		    }
+								if (lastVisiblePage < totalPages) {
+									// Add ellipsis if not on the last page
+									const ellipsisButton = document
+											.createElement("div");
+									ellipsisButton.classList
+											.add("pagination-item");
+									ellipsisButton.textContent = "...";
+									paginationContainer
+											.appendChild(ellipsisButton);
+								}
 
-		    // Tạo nút "Next"
-		    const nextButton = document.createElement("div");
-		    nextButton.classList.add("pagination-item", "next");
-		    nextButton.innerHTML = `<span><i class="fa-solid fa-angles-right"></i></span>`;
-		    nextButton.addEventListener("click", function () {
-		      if (currentPage < totalPages) {
-		        showPage(currentPage + 1);
-		      }
-		    });
-		    paginationContainer.appendChild(nextButton);
-		  }
+								// Tạo nút "Next"
+								const nextButton = document
+										.createElement("div");
+								nextButton.classList.add("pagination-item",
+										"next");
+								nextButton.innerHTML = `<span><i class="fa-solid fa-angles-right"></i></span>`;
+								nextButton.addEventListener("click",
+										function() {
+											if (currentPage < totalPages) {
+												showPage(currentPage + 1);
+											}
+										});
+								paginationContainer.appendChild(nextButton);
+							}
 
+							// Gọi hàm updatePagination() ban đầu
+							updatePagination();
+						});
 
-		  // Gọi hàm updatePagination() ban đầu
-		  updatePagination();
+		// Hàm để đặt lại giá trị các trường nhập liệu
+		function resetForm() {
+			// Đặt giá trị của các trường vào giá trị mặc định hoặc rỗng
+			document.getElementById("from-date").value = "";
+			document.getElementById("to-date").value = "";
+			document.getElementById("Vaccine").value = "";
+			document.getElementById("Origin").value = "";
+			const vaccineSelect = document.getElementById("Vaccine");
+			vaccineSelect.selectedIndex = 0;
+			// Đặt giá trị của các trường khác ở đây nếu cần thiết
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			// Lắng nghe sự kiện click trên nút "Reset"
+			const resetButton = document.querySelector("button[type='reset']");
+			resetButton.addEventListener("click", function() {
+				// Gọi hàm resetForm() để đặt lại giá trị các trường
+				resetForm();
+			});
 		});
-
-      // Hàm để đặt lại giá trị các trường nhập liệu
-    function resetForm() {
-      // Đặt giá trị của các trường vào giá trị mặc định hoặc rỗng
-      document.getElementById("from-date").value = "";
-      document.getElementById("to-date").value = "";
-      document.getElementById("Vaccine").value = "";
-      document.getElementById("Origin").value = "";
-      const vaccineSelect = document.getElementById("Vaccine");
-      vaccineSelect.selectedIndex = 0;
-      // Đặt giá trị của các trường khác ở đây nếu cần thiết
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      // Lắng nghe sự kiện click trên nút "Reset"
-      const resetButton = document.querySelector("button[type='reset']");
-      resetButton.addEventListener("click", function () {
-        // Gọi hàm resetForm() để đặt lại giá trị các trường
-        resetForm();
-      });
-    });
-     
-    </script>
+	</script>
 
 </body>
 </html>
