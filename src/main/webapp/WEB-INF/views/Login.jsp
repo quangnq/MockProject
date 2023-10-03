@@ -37,11 +37,6 @@
                 <img src="<c:url value="/resources/assets/img/logo.png" />" alt="" width="40" />
               </a>
             </div>
-            <div class="icon-search">
-              <span>
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </span>
-            </div>
           </div>
         </div>
       </div>
