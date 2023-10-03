@@ -1,7 +1,9 @@
 package fa.training.controller;
 
 import fa.training.dto.InjectionResultReportDto;
+import fa.training.dto.InjectionResultReportSearchDto;
 import fa.training.dto.VaccineTypeDto;
+import fa.training.repository.InjectionResultRepository;
 import fa.training.service.CustomerService;
 import fa.training.service.InjectionResultService;
 import fa.training.service.VaccineService;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -30,24 +33,28 @@ public class ReportsController {
     @Autowired
     VaccineTypeService vaccineTypeService;
 
+//    @RequestMapping(value = "", method = RequestMethod.GET)
+//    public String reportTotal(Model model
+//            , @RequestParam(value = "vaccineType", required = false) String vaccineType
+//            , @RequestParam(value = "prevention", required = false) String prevention
+//            , @RequestParam(value = "fromDate", required = false) String fromDate
+//            , @RequestParam(value = "toDate", required = false) String toDate) {
+////        System.out.println("-------------INJECTION_RESULT------------------");
+//        List<InjectionResultReportDto> injectionResultReportDtoList = injectionResultService.findAll();
+////        System.out.println("-------------VACCINE_TYPE------------------");
+//        List<VaccineTypeDto> vaccineTypeDtoList = vaccineTypeService.findAll();
+//        model.addAttribute("vaccineTypeDtoList", vaccineTypeDtoList);
+//        model.addAttribute("injectionResultReportDtoList", injectionResultReportDtoList);
+//        return "reports/Report";
+//    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String reportTotal(Model model) {
+    public String reportTotal(Model model, InjectionResultReportSearchDto injectionResultReportSearchDto) {
+        injectionResultReportSearchDto.validate();
 //        System.out.println("-------------INJECTION_RESULT------------------");
-        List<InjectionResultReportDto> injectionResultReportDtoList = injectionResultService.findAll();
-//        injectionResultReportDtoList.forEach(e -> {
-//            System.out.println("-------------------------------");
-//            System.out.println("id : " + e.getInjectionResultId());
-//            System.out.println("name : " + e.getPrevention());
-//            System.out.println();
-//        });
+        List<InjectionResultReportDto> injectionResultReportDtoList = injectionResultService.findByFilter(injectionResultReportSearchDto);
 //        System.out.println("-------------VACCINE_TYPE------------------");
         List<VaccineTypeDto> vaccineTypeDtoList = vaccineTypeService.findAll();
-//        vaccineTypeDtoList.forEach(e -> {
-//            System.out.println("-------------------------------");
-//            System.out.println("id : " + e.getVaccineTypeId());
-//            System.out.println("name : " + e.getVaccineTypeName());
-//            System.out.println();
-//        });
         model.addAttribute("vaccineTypeDtoList", vaccineTypeDtoList);
         model.addAttribute("injectionResultReportDtoList", injectionResultReportDtoList);
         return "reports/Report";

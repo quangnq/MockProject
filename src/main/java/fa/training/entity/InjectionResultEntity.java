@@ -30,7 +30,7 @@ public class InjectionResultEntity {
 	@Column(name = "NEXT_INJECTION_DATE")
 	private LocalDate nextInjectionDate;
 
-	@Column(name = "NUMBER_OF_INJECTION", length=100, columnDefinition = "NVARCHAR(100)")
+	@Column(name = "NUMBER_OF_INJECTION")
 	private int numberOfInjection;
 
 	@Column(name = "PREVENTION", length=100, columnDefinition = "NVARCHAR(100)")

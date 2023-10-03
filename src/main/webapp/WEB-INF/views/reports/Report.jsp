@@ -128,42 +128,35 @@
 								</select>
 							</div>
 							<!-- Add a form element with an ID -->
-							<form id="filter-form">
+							<form id="filter-form" action="${pageContext.request.contextPath}/report" method="get">
 								<div class="report-display">
 									<div class="group-input">
 										<h6 class="title-input">Inject Date:</h6>
 										<div class="wrapper-input">
-
-											<label for="from-date">From:</label> <input id="from-date"
-												type="date" class="form-control" />
+											<label for="fromDate">From:</label>
+											<input id="fromDate" name="fromDate" type="date" class="form-control" />
 										</div>
 									</div>
 									<div class="group-input">
 										<h6 class="title-input">ㅤ</h6>
 										<div class="wrapper-input">
-
-											<label for="to-date">To:</label> <input id="to-date"
-												type="date" class="form-control" />
+											<label for="toDate">To:</label>
+											<input id="toDate" name="toDate" type="date" class="form-control" />
 										</div>
 									</div>
 									<div class="group-input">
 										<h6 class="title-input">Prevention:</h6>
 										<div class="wrapper-input">
-
-											<input id="Prevention" type="text" class="form-control" />
+											<input id="prevention" name="prevention" type="text" class="form-control" />
 										</div>
 									</div>
 									<div class="group-input">
 										<h6 class="title-input">Vaccine type:</h6>
 										<div class="wrapper-input">
-
-											<select class="form-select select-chart" name="year"
-												id="Vaccine">
-												<option selected>--Select vaccine</option>
-												<c:forEach var="vaccineTypeDto"
-													items="${vaccineTypeDtoList}">
-													<option value="${vaccineTypeDto.vaccineTypeId}"><c:out
-															value="${vaccineTypeDto.vaccineTypeName}" /></option>
+											<select class="form-select select-chart" name="vaccineType" id="vaccineType">
+												<option value="all" selected>--Select vaccine</option>
+												<c:forEach var="vaccineTypeDto" items="${vaccineTypeDtoList}">
+													<option value="${vaccineTypeDto.vaccineTypeId}"><c:out value="${vaccineTypeDto.vaccineTypeName}" /></option>
 												</c:forEach>
 											</select>
 										</div>
@@ -171,7 +164,6 @@
 									<div class="group-input">
 										<h6 class="title-input">Action:</h6>
 										<div class="wrapper-input">
-
 											<button type="reset">Reset</button>
 											<button type="submit" style="margin-left: 8px;">Filter</button>
 										</div>
