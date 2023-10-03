@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<<<<<<< HEAD
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+=======
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
+>>>>>>> c676f400732b4cbd90c17387999ce2b7cd863e19
 <!DOCTYPE html>
 <html lang="en">
 
@@ -242,7 +248,54 @@
 		crossorigin="anonymous"></script>
 	<script src="<c:url value="/resources/assets/js/chart.js" />"></script>
 
+<<<<<<< HEAD
 	<script>
+=======
+                </table>
+                <c:set var="recordsOfPage" value="${5}" />
+                <c:set var="totalRecords" value="${injectionResultReportDtoList.size()}" />
+                <fmt:parseNumber var = "totalPages" integerOnly = "true" type = "number" value = "${totalRecords / recordsOfPage}" />
+                <c:if test = "${totalRecords % recordsOfPage > 0}">
+                    <c:set var="totalPages" value="${totalPages + 1}" />
+                </c:if>
+
+                <div class="pagination">
+
+                  <span class="text-pagination">
+                    Showing 1 to <c:out value = "${recordsOfPage}"/> of <c:out value = "${totalRecords}"/> entries
+                  </span>
+                  <div class="pagination-list">
+                    <div class="pagination-item prev">
+                      <span><i class="fa-solid fa-angles-left"></i></span>
+                    </div>
+                    <div class="pagination-item active">
+                      <span>1</span>
+                    </div>
+                    <c:forEach var = "i" begin = "2" end = "${totalPages}">
+                      <div class="pagination-item">
+                        <span>${i}</span>
+                      </div>
+                    </c:forEach>
+                    <div class="pagination-item">
+                      <span><i class="fa-solid fa-angles-right"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" />"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="<c:url value="/resources/assets/js/chart.js" />"></script>
+
+  <script>
+>>>>>>> c676f400732b4cbd90c17387999ce2b7cd863e19
     const ctx = document.getElementById("myChart");
     new Chart(ctx, {
       type: "bar",
