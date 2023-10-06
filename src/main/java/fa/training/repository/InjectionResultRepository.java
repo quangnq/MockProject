@@ -45,7 +45,7 @@ public class InjectionResultRepository {
         }
         if (StringUtils.isNotEmpty(injectionResultReportSearchDto.getToDate())) {
             predicates.add(cb.lessThanOrEqualTo(injectionResultEntityRoot.get("injectionDate")
-                    , LocalDate.parse(injectionResultReportSearchDto.getFromDate())));
+                    , LocalDate.parse(injectionResultReportSearchDto.getToDate())));
         }
         if (StringUtils.isNotBlank(injectionResultReportSearchDto.getPrevention())) {
             predicates.add(cb.like(injectionResultEntityRoot.get("prevention"), "%"+ injectionResultReportSearchDto.getPrevention()+"%"));
