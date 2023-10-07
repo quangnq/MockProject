@@ -125,14 +125,13 @@ h1.heading-content {
   margin-bottom: 10px;
 }
 
-.content-top {
+.content-top {	
   background: white;
   padding: 28px;
   outline: 3px solid #dddddd;
 }
 
 .content-top {
-  display: flex;
   align-items: flex-start;
 }
 
@@ -141,6 +140,7 @@ h3.text-display-type {
 }
 
 .display-type {
+  display:flex;
   font-size: 14px;
 }
 
@@ -291,6 +291,11 @@ th {
   white-space: nowrap; 
   text-overflow: ellipsis; 
   overflow: hidden; 
+}
+
+.pagination-item.disabled {
+    pointer-events: none;
+    opacity: 0.5; 
 }
 
 

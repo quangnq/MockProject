@@ -112,10 +112,10 @@
 						<h1 class="heading-content">REPORT INJECTION RESULT</h1>
 						<div class="content-top">
 							<div class="display-type">
-								<h3 class="text-display-type">Display type</h3>
-								<input class="form-check-input" type="radio" id="report"
+								<h3 class="text-display-type">Display type:</h3>
+								<input checked class="form-check-input " type="radio" id="report"
 									name="display_type" value="report" /> <label for="report">Report</label>
-								<input checked class="form-check-input" type="radio" id="chart"
+								<input  class="form-check-input" type="radio" id="chart"
 									name="display_type" value="chart" /> <label for="chart">Chart</label>
 							</div>
 							<div class="chart-display">
@@ -206,9 +206,20 @@
 									</table>
 								</div>
 								<div class="pagination">
+<<<<<<< Updated upstream
 									<span class="text-pagination"> Showing 1 to 5 of <c:out value="${fn:length(injectionResultReportDtoList)}" />
 										entries
 									</span>
+=======
+									<span class="text-pagination">Showing 
+									<span id="start-page">1</span> to 
+									<span id="end-page">5</span> of 
+									<span id="total-entries">
+									<c:out value="${fn:length(injectionResultReportDtoList)}" />
+									</span> entries</span>
+
+
+>>>>>>> Stashed changes
 									<div class="pagination-list" id="pagination-container">
 										<div class="pagination-item prev">
 											<span><i class="fa-solid fa-angles-left"></i></span>
@@ -428,8 +439,40 @@
 
 							// Gọi hàm updatePagination() ban đầu
 							updatePagination();
-						});
+							
+							// Hàm để hiển thị trang cụ thể
+							function showPage(page) {
+							    currentPage = page;
 
+							    // Tính vị trí bắt đầu và kết thúc của trang
+							    const startIndex = (page - 1) * rowsPerPage;
+							    const endIndex = startIndex + rowsPerPage;
+
+							    // Ẩn tất cả các hàng trong phần tbody
+							    const tbodyRows = table.querySelectorAll("tbody tr");
+							    tbodyRows.forEach(function(row, index) {
+							        if (index >= startIndex && index < endIndex) {
+							            row.style.display = "table-row";
+							        } else {
+							            row.style.display = "none";
+							        }
+							    });
+
+							    // Cập nhật thông tin trang
+							    const startPage = startIndex + 1;
+							    const endPage = Math.min(endIndex, totalRows);
+							    document.getElementById("start-page").textContent = startPage;
+							    document.getElementById("end-page").textContent = endPage;
+
+							    // Tạo và cập nhật nút pagination
+							    updatePagination();
+							}
+
+							
+						});
+		
+		
+		
 		// Hàm để đặt lại giá trị các trường nhập liệu
 		function resetForm() {
 			// Đặt giá trị của các trường vào giá trị mặc định hoặc rỗng
@@ -470,6 +513,7 @@
 				}
 			});
 		});
+<<<<<<< Updated upstream
 
 		$("#btnFilter").click(function() {
 			var toDate = $("#toDate").val();
@@ -505,6 +549,10 @@
 				$("#vaccineType").val(${searchDto.vaccineType});
 			</c:if>
 		}
+=======
+		
+		
+>>>>>>> Stashed changes
 	</script>
 
 </body>
