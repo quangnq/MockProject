@@ -18,14 +18,16 @@ public class BaseSearchDto {
             try {
                 LocalDate.parse(this.fromDate);
             } catch (Exception e) {
-                throw new MockFinalException("From Date is invalid");
+//                throw new MockFinalException("From Date is invalid");
+                fromDate = "";
             }
         }
         if (StringUtils.isNotEmpty(this.toDate)) {
             try {
                 LocalDate.parse(this.toDate);
             } catch (Exception e) {
-                throw new MockFinalException("To Date is invalid");
+//                throw new MockFinalException("To Date is invalid");
+                toDate = "";
             }
         }
     }

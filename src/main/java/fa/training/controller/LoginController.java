@@ -33,7 +33,6 @@ public class LoginController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String reportTotal(Model model) {
         // test select chart value
-        injectionResultService.getInjectionResultChartDto(2022);
         return "Login";
     }
 }

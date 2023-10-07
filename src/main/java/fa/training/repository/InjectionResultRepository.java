@@ -9,6 +9,7 @@ import fa.training.entity.VaccineTypeEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -64,11 +65,14 @@ public class InjectionResultRepository {
                         " from InjectionResultEntity", BaseChartDto.class).getSingleResult();
     }
 
-    public List<ValueOfMonthDto> getValueMonthOfYear(int year) {
-        return sessionFactory.getCurrentSession().createQuery(
-                "select new fa.training.dto.ValueOfMonthDto(MONTH(injectionDate) as month, SUM(numberOfInjection) as value)" +
-                        " from InjectionResultEntity where YEAR(injectionDate) = " + year +
-                        " GROUP BY  MONTH(injectionDate)"
-                , ValueOfMonthDto.class).getResultList();
+    public List<ValueOfMonthDto> getValueMonthOfYear() {
+        Query<ValueOfMonthDto> query = sessionFactory.getCurrentSession().createQuery(
+                "select new fa.training.dto.ValueOfMonthDto(MONTH(injectionDate) as month" +
+                        ", SUM(numberOfInjection) as value, YEAR(injectionDate) as year)" +
+                        " from InjectionResultEntity" +
+                        " GROUP BY  MONTH(injectionDate), YEAR(injectionDate)" +
+                        " ORDER BY YEAR(injectionDate), MONTH(injectionDate)"
+                , ValueOfMonthDto.class);
+        return query.getResultList();
     }
 }

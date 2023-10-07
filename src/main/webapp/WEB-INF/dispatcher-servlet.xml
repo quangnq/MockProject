@@ -28,7 +28,7 @@
 		<property name="url"
 			value="jdbc:sqlserver://localhost:1433;databaseName=VaccineManagement01;encrypt=true;trustServerCertificate=true;sendTimeAsDateTime=false" />
 		<property name="username" value="sa" />
-		<property name="password" value="Password.1" />
+		<property name="password" value="Quang863751" />
 	</bean>
 
 	<bean id="sessionFactory"

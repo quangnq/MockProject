@@ -10,8 +10,11 @@ public class ValueOfMonthDto {
 
     private Long value;
 
-    public ValueOfMonthDto(Integer month, Long value) {
+    private Integer year;
+
+    public ValueOfMonthDto(Integer month, Long value, Integer year) {
         this.month = month;
         this.value = value;
+        this.year = year;
     }
 }

@@ -31,31 +31,12 @@ public class InjectionResultService {
     }
 
     @Transactional
-    public void getInjectionResultChartDto(Integer year) {
-        BaseChartDto baseChartDto = injectionResultRepository.buildMinMaxYear();
-        boolean hasGettingValue = true;
-        if (year == null) {
-            year = baseChartDto.getMinYear();
-        } else if (year < baseChartDto.getMinYear()) {
-            hasGettingValue = false;
-            baseChartDto.setMinYear(year);
-        } else if (year > baseChartDto.getMaxYear()) {
-            hasGettingValue = false;
-            baseChartDto.setMaxYear(year);
-        }
+    public BaseChartDto getInjectionResultChartDto() {
 
-        if (hasGettingValue) {
-            List<ValueOfMonthDto> valueOfMonthDtoList = injectionResultRepository.getValueMonthOfYear(year);
-            baseChartDto.setValueOfMonthDto(valueOfMonthDtoList);
-        }
+        List<ValueOfMonthDto> valueOfMonthDtoList = injectionResultRepository.getValueMonthOfYear();
+        BaseChartDto baseChartDto = new BaseChartDto(valueOfMonthDtoList);
 
-        for (int i = baseChartDto.getMinYear(); i <= baseChartDto.getMaxYear(); i++) {
-            baseChartDto.getYears().add(i);
-        }
-
-        System.out.println(baseChartDto.getYears());
-        System.out.println();
-        System.out.println(baseChartDto.getValueOfMonthDto());
+        return baseChartDto;
 
     }
 }

@@ -119,12 +119,12 @@
 									name="display_type" value="chart" /> <label for="chart">Chart</label>
 							</div>
 							<div class="chart-display">
-								<label for="year">Select year:</label> <br /> <select
-									class="form-select select-chart" name="year" id="year">
-									<option value="2018">2018</option>
-									<option value="2019">2019</option>
-									<option value="2020">2020</option>
-									<option value="2021">2021</option>
+								<label for="yearSelector">Select year:</label> <br />
+								<select class="form-select select-chart" name="yearSelector" id="yearSelector">
+									<c:forEach items="${baseChartDto.yearAndMonthValue}" var="entry">
+										<%--	lặp map value, entry.key get ra key là năm									--%>
+										<option value="${entry.key}"><c:out value="${entry.key}" /></option>
+									</c:forEach>
 								</select>
 							</div>
 							<!-- Add a form element with an ID -->
@@ -154,7 +154,7 @@
 										<h6 class="title-input">Vaccine type:</h6>
 										<div class="wrapper-input">
 											<select class="form-select select-chart" name="vaccineType" id="vaccineType">
-												<option value="all" selected>--Select vaccine</option>
+												<option value="" selected>--Select vaccine</option>
 												<c:forEach var="vaccineTypeDto" items="${vaccineTypeDtoList}">
 													<option value="${vaccineTypeDto.vaccineTypeId}"><c:out value="${vaccineTypeDto.vaccineTypeName}" /></option>
 												</c:forEach>
@@ -164,8 +164,8 @@
 									<div class="group-input">
 										<h6 class="title-input">Action:</h6>
 										<div class="wrapper-input">
-											<button type="reset">Reset</button>
-											<button type="submit" style="margin-left: 8px;">Filter</button>
+											<button type="reset" id="btnReset">Reset</button>
+											<button type="button" style="margin-left: 8px;" id="btnFilter">Filter</button>
 										</div>
 									</div>
 								</div>
@@ -192,8 +192,7 @@
 											</tr>
 										<thead>
 										<tbody>
-											<c:forEach var="injectionResultReportDto"
-												items="${injectionResultReportDtoList}">
+											<c:forEach var="injectionResultReportDto" items="${injectionResultReportDtoList}">
 												<tr>
 													<td>${injectionResultReportDto.injectionResultId}</td>
 													<td>${injectionResultReportDto.vaccineEntity.vaccineName}</td>
@@ -207,8 +206,7 @@
 									</table>
 								</div>
 								<div class="pagination">
-									<span class="text-pagination"> Showing 1 to 5 of <c:out
-											value="${fn:length(injectionResultReportDtoList)}" />
+									<span class="text-pagination"> Showing 1 to 5 of <c:out value="${fn:length(injectionResultReportDtoList)}" />
 										entries
 									</span>
 									<div class="pagination-list" id="pagination-container">
@@ -238,18 +236,46 @@
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
 	<script src="<c:url value="/resources/assets/js/chart.js" />"></script>
+	<script src="<c:url value="/resources/bootstrap/js/jquery-3.6.4.min.js" />"></script>
 
 	<script>
+		$("#yearSelector").change(function(){
+			// khi select năm, thì thay đổi data cảu chart và update lại
+			let yearInt = parseInt($('#yearSelector').val());
+			// thay đổi data khi thay đổi năm
+			chart.data.datasets[0].data = mapYearAndMonthValue.get(yearInt);
+			// cập nhật lại chart
+			chart.update();
+		});
 		const ctx = document.getElementById("myChart");
-		new Chart(ctx, {
+		const mapYearAndMonthValue = new Map();
+
+		let dataMonth =[];
+		<c:forEach items="${baseChartDto.yearAndMonthValue}" var="entry">
+			// for map để lấy ra các key năm
+			// entry.key : lấy ra key năm
+			// entry.value : lấy ra list value tháng của năm tương ứng
+		  dataMonth =[];
+			<c:forEach var="item" items="${entry.value}" varStatus="myIndex">
+				// for list value tháng của năm tương ứng để lấy ra từng value tháng
+				// myIndex.index : lấy ra index
+				dataMonth[${myIndex.index}] = ${item};
+			</c:forEach>
+			// set value tháng vào năm tương ứng
+			mapYearAndMonthValue.set(${entry.key}, dataMonth);
+		</c:forEach>
+		// console.log(mapYearAndMonthValue.get(2022));
+		// console.log($('#yearSelector').val());
+		const chart = new Chart(ctx, {
 			type : "bar",
 			data : {
 				labels : [ "January", "February", "March", "April", "May",
-						"June", "July", "August", "September", "October",
-						"November", "December", ],
+					"June", "July", "August", "September", "October",
+					"November", "December", ],
 				datasets : [ {
 					label : "",
-					data : [ 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 4, 1 ],
+					// get data khi lần đầu khởi chạy lên.
+					data : mapYearAndMonthValue.get(parseInt($('#yearSelector').val())),
 					borderWidth : 1,
 					borderColor : "#7EDCE9",
 					backgroundColor : "#7EDCE9",
@@ -274,8 +300,7 @@
 	</script>
 	<script src="<c:url value="/resources/assets/js/main.js" />"></script>
 	<script>
-		document
-				.addEventListener(
+		document.addEventListener(
 						"DOMContentLoaded",
 						function() {
 							const table = document.getElementById("table-id");
@@ -408,11 +433,10 @@
 		// Hàm để đặt lại giá trị các trường nhập liệu
 		function resetForm() {
 			// Đặt giá trị của các trường vào giá trị mặc định hoặc rỗng
-			document.getElementById("from-date").value = "";
-			document.getElementById("to-date").value = "";
-			document.getElementById("Prevention").value = "";
-			document.getElementById("Vaccine").value = "";
-			const vaccineSelect = document.getElementById("Vaccine");
+			document.getElementById("fromDate").value = "";
+			document.getElementById("toDate").value = "";
+			document.getElementById("prevention").value = "";
+			const vaccineSelect = document.getElementById("vaccineType");
 			vaccineSelect.selectedIndex = 0;
 			// Đặt giá trị của các trường khác ở đây nếu cần thiết
 		}
@@ -425,60 +449,6 @@
 				resetForm();
 			});
 		});
-
-		document
-				.addEventListener(
-						"DOMContentLoaded",
-						function() {
-							// Lắng nghe sự kiện click trên nút "Filter"
-							const filterButton = document
-									.querySelector("button[type='filter']");
-							filterButton
-									.addEventListener(
-											"click",
-											function() {
-												// Lấy giá trị của các trường tìm kiếm
-												const fromDate = document
-														.getElementById("from-date").value;
-												const toDate = document
-														.getElementById("to-date").value;
-												const prevention = document
-														.getElementById("Prevention").value;
-												const vaccine = document
-														.getElementById("Vaccine").value;
-
-												// Lấy danh sách tất cả các hàng trong bảng
-												const tableRows = document
-														.querySelectorAll("#table-id tbody tr");
-
-												// Duyệt qua các hàng và kiểm tra điều kiện tìm kiếm
-												tableRows
-														.forEach(function(row) {
-															const injectDate = row
-																	.querySelector("td:nth-child(5)").textContent;
-															const rowPrevention = row
-																	.querySelector("td:nth-child(3)").textContent;
-															const rowVaccine = row
-																	.querySelector("td:nth-child(2)").textContent;
-
-															// Kiểm tra xem hàng phù hợp với các điều kiện tìm kiếm hay không
-															const dateMatch = (fromDate === ""
-																	|| toDate === "" || (injectDate >= fromDate && injectDate <= toDate));
-															const preventionMatch = (prevention === "" || rowPrevention
-																	.includes(prevention));
-															const vaccineMatch = (vaccine === "Select vaccine" || rowVaccine === vaccine);
-
-															// Nếu hàng phù hợp với tất cả các điều kiện tìm kiếm, hiển thị nó, ngược lại ẩn nó
-															if (dateMatch
-																	&& preventionMatch
-																	&& vaccineMatch) {
-																row.style.display = "table-row";
-															} else {
-																row.style.display = "none";
-															}
-														});
-											});
-						});
 
 		document.addEventListener("DOMContentLoaded", function() {
 			// Lấy tham chiếu đến biểu tượng "+" và dòng con ẩn
@@ -500,6 +470,41 @@
 				}
 			});
 		});
+
+		$("#btnFilter").click(function() {
+			var toDate = $("#toDate").val();
+			if (toDate.trim() && !Date.parse(toDate)) {
+				alert('To Date Value is invalid');
+				return;
+			}
+			var fromDate = $("#fromDate").val();
+			if (fromDate.trim() && !Date.parse(fromDate)) {
+				alert('From Date Value is invalid');
+				return;
+			}
+			$("#filter-form").submit();
+		});
+
+		initValueSearch();
+		// khởi tạo lại giá trị cho khung search
+		function initValueSearch() {
+
+			<c:if test="${not empty searchDto.toDate}">
+				$("#toDate").val('${searchDto.toDate}');
+			</c:if>
+
+			<c:if test="${not empty searchDto.fromDate}">
+				$("#fromDate").val('${searchDto.fromDate}');
+			</c:if>
+
+			<c:if test="${not empty searchDto.prevention}">
+				$("#prevention").val('${searchDto.prevention}');
+			</c:if>
+
+			<c:if test="${not empty searchDto.vaccineType}">
+				$("#vaccineType").val(${searchDto.vaccineType});
+			</c:if>
+		}
 	</script>
 
 </body>
