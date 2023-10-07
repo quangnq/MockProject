@@ -206,20 +206,11 @@
 									</table>
 								</div>
 								<div class="pagination">
-<<<<<<< Updated upstream
-									<span class="text-pagination"> Showing 1 to 5 of <c:out value="${fn:length(injectionResultReportDtoList)}" />
-										entries
-									</span>
-=======
 									<span class="text-pagination">Showing 
-									<span id="start-page">1</span> to 
-									<span id="end-page">5</span> of 
-									<span id="total-entries">
-									<c:out value="${fn:length(injectionResultReportDtoList)}" />
-									</span> entries</span>
-
-
->>>>>>> Stashed changes
+										<span id="start-page">1</span> to
+										<span id="end-page">5</span> of
+										<span id="total-entries"><c:out value="${fn:length(injectionResultReportDtoList)}" /></span> entries
+									</span>
 									<div class="pagination-list" id="pagination-container">
 										<div class="pagination-item prev">
 											<span><i class="fa-solid fa-angles-left"></i></span>
@@ -513,7 +504,6 @@
 				}
 			});
 		});
-<<<<<<< Updated upstream
 
 		$("#btnFilter").click(function() {
 			var toDate = $("#toDate").val();
@@ -549,10 +539,6 @@
 				$("#vaccineType").val(${searchDto.vaccineType});
 			</c:if>
 		}
-=======
-		
-		
->>>>>>> Stashed changes
 	</script>
 
 </body>
