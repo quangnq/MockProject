@@ -59,12 +59,6 @@ public class InjectionResultRepository {
         return session.createQuery(criteriaQuery).getResultList();
     }
 
-    public BaseChartDto buildMinMaxYear() {
-        return sessionFactory.getCurrentSession().createQuery(
-                "select new fa.training.dto.BaseChartDto(YEAR(MIN(injectionDate)) as minYear, YEAR(MAX(injectionDate)) as maxYear)" +
-                        " from InjectionResultEntity", BaseChartDto.class).getSingleResult();
-    }
-
     public List<ValueOfMonthDto> getValueMonthOfYear() {
         Query<ValueOfMonthDto> query = sessionFactory.getCurrentSession().createQuery(
                 "select new fa.training.dto.ValueOfMonthDto(MONTH(injectionDate) as month" +

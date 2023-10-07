@@ -32,7 +32,7 @@ public class CustomerEntity {
 	private String fullName;
 
 	@Column(name = "GENDER")
-	private int gender;
+	private Integer gender;
 
 	@Column(name = "IDENTITY_CARD", length=12, columnDefinition = "NVARCHAR(12)")
 	private String identityCard;
