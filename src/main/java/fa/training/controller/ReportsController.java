@@ -33,13 +33,13 @@ public class ReportsController {
     public String reportTotal(Model model, InjectionResultReportSearchDto searchDto) {
         searchDto.validate();
 //        System.out.println("-------------INJECTION_RESULT------------------");
-        List<InjectionResultReportDto> injectionResultReportDtoList = injectionResultService.findByFilter(searchDto);
+        List<InjectionResultReportDto> reportDtoList = injectionResultService.findByFilter(searchDto);
 //        System.out.println("-------------VACCINE_TYPE------------------");
         List<VaccineTypeDto> vaccineTypeDtoList = vaccineTypeService.findAll();
 
         BaseChartDto baseChartDto = injectionResultService.getChartDto();
         model.addAttribute("vaccineTypeDtoList", vaccineTypeDtoList);
-        model.addAttribute("injectionResultReportDtoList", injectionResultReportDtoList);
+        model.addAttribute("reportDtoList", reportDtoList);
         model.addAttribute("baseChartDto", baseChartDto);
         model.addAttribute("searchDto", searchDto);
 
@@ -49,25 +49,27 @@ public class ReportsController {
     @RequestMapping(value = "/customer", method = RequestMethod.GET)
     public String reportCustomer(Model model, CustomerReportSearchDto searchDto) {
         searchDto.validate();
-        List<CustomerReportDto> customerReportDtoList = customerService.findByFilter(searchDto);
+        List<CustomerReportDto> reportDtoList = customerService.findByFilter(searchDto);
         BaseChartDto baseChartDto = injectionResultService.getChartDto();
 
         model.addAttribute("searchDto", searchDto);
-        model.addAttribute("customerReportDtoList", customerReportDtoList);
+        model.addAttribute("reportDtoList", reportDtoList);
         model.addAttribute("baseChartDto", baseChartDto);
 
         return "reports/ReportCustomer";
     }
 
     @RequestMapping(value = "/vaccine", method = RequestMethod.GET)
-    public String reportVaccine(Model model, CustomerReportSearchDto searchDto) {
-//        searchDto.validate();
-//        List<CustomerReportDto> customerReportDtoList = customerService.findByFilter(searchDto);
-//        BaseChartDto baseChartDto = injectionResultService.getChartDto();
-//
-//        model.addAttribute("searchDto", searchDto);
-//        model.addAttribute("customerReportDtoList", customerReportDtoList);
-//        model.addAttribute("baseChartDto", baseChartDto);
+    public String reportVaccine(Model model, VaccineReportSearchDto searchDto) {
+        searchDto.validate();
+        List<VaccineReportDto> reportDtoList = vaccineService.findByFilter(searchDto);
+        BaseChartDto baseChartDto = injectionResultService.getChartDto();
+        List<VaccineTypeDto> vaccineTypeDtoList = vaccineTypeService.findAll();
+
+        model.addAttribute("vaccineTypeDtoList", vaccineTypeDtoList);
+        model.addAttribute("searchDto", searchDto);
+        model.addAttribute("reportDtoList", reportDtoList);
+        model.addAttribute("baseChartDto", baseChartDto);
 
         return "reports/ReportVaccine";
     }

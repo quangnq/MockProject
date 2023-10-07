@@ -31,7 +31,7 @@ public class CustomerRepository {
         return customerEntityList;
     }
 
-    public List<CustomerEntity> findByFilter(CustomerReportSearchDto customerReportSearchDto) {
+    public List<CustomerEntity> findByFilter(CustomerReportSearchDto searchDto) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<CustomerEntity> criteriaQuery = cb.createQuery(CustomerEntity.class);
@@ -39,33 +39,22 @@ public class CustomerRepository {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (StringUtils.isNotEmpty(customerReportSearchDto.getFromDate())) {
+        if (StringUtils.isNotEmpty(searchDto.getFromDate())) {
             predicates.add(cb.greaterThanOrEqualTo(root.get("dateOfBirth")
-                    , LocalDate.parse(customerReportSearchDto.getFromDate())));
+                    , LocalDate.parse(searchDto.getFromDate())));
         }
-        if (StringUtils.isNotEmpty(customerReportSearchDto.getToDate())) {
+        if (StringUtils.isNotEmpty(searchDto.getToDate())) {
             predicates.add(cb.lessThanOrEqualTo(root.get("dateOfBirth")
-                    , LocalDate.parse(customerReportSearchDto.getToDate())));
+                    , LocalDate.parse(searchDto.getToDate())));
         }
-        if (StringUtils.isNotBlank(customerReportSearchDto.getAddress())) {
-            predicates.add(cb.like(root.get("address"), "%"+ customerReportSearchDto.getAddress()+"%"));
+        if (StringUtils.isNotBlank(searchDto.getAddress())) {
+            predicates.add(cb.like(root.get("address"), "%"+ searchDto.getAddress()+"%"));
         }
-        if (StringUtils.isNotBlank(customerReportSearchDto.getFullName())) {
-            predicates.add(cb.like(root.get("fullName"), "%"+ customerReportSearchDto.getFullName()+"%"));
+        if (StringUtils.isNotBlank(searchDto.getFullName())) {
+            predicates.add(cb.like(root.get("fullName"), "%"+ searchDto.getFullName()+"%"));
         }
 
         criteriaQuery.select(root).where(predicates.toArray(new Predicate[]{}));
         return session.createQuery(criteriaQuery).getResultList();
-    }
-
-    public List<ValueOfMonthDto> getValueMonthOfYear() {
-        Query<ValueOfMonthDto> query = sessionFactory.getCurrentSession().createQuery(
-                "select new fa.training.dto.ValueOfMonthDto(MONTH(injectionDate) as month" +
-                        ", SUM(numberOfInjection) as value, YEAR(injectionDate) as year)" +
-                        " from InjectionResultEntity" +
-                        " GROUP BY  MONTH(injectionDate), YEAR(injectionDate)" +
-                        " ORDER BY YEAR(injectionDate), MONTH(injectionDate)"
-                , ValueOfMonthDto.class);
-        return query.getResultList();
     }
 }

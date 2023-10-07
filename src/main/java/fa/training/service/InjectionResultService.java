@@ -26,9 +26,8 @@ public class InjectionResultService {
     public BaseChartDto getChartDto() {
 
         List<ValueOfMonthDto> valueOfMonthDtoList = injectionResultRepository.getValueMonthOfYear();
-        BaseChartDto baseChartDto = new BaseChartDto(valueOfMonthDtoList);
 
-        return baseChartDto;
+        return new BaseChartDto(valueOfMonthDtoList);
 
     }
 }

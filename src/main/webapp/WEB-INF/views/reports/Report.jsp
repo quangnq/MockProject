@@ -192,14 +192,14 @@
 											</tr>
 										<thead>
 										<tbody>
-											<c:forEach var="injectionResultReportDto" items="${injectionResultReportDtoList}">
+											<c:forEach var="reportDto" items="${reportDtoList}">
 												<tr>
-													<td>${injectionResultReportDto.injectionResultId}</td>
-													<td>${injectionResultReportDto.vaccineEntity.vaccineName}</td>
-													<td>${injectionResultReportDto.prevention}</td>
-													<td>${injectionResultReportDto.customerEntity.fullName}</td>
-													<td>${injectionResultReportDto.injectionDate}</td>
-													<td>${injectionResultReportDto.numberOfInjection}</td>
+													<td>${reportDto.injectionResultId}</td>
+													<td>${reportDto.vaccineEntity.vaccineName}</td>
+													<td>${reportDto.prevention}</td>
+													<td>${reportDto.customerEntity.fullName}</td>
+													<td>${reportDto.injectionDate}</td>
+													<td>${reportDto.numberOfInjection}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -209,7 +209,7 @@
 									<span class="text-pagination">Showing 
 										<span id="start-page">1</span> to
 										<span id="end-page">5</span> of
-										<span id="total-entries"><c:out value="${fn:length(injectionResultReportDtoList)}" /></span> entries
+										<span id="total-entries"><c:out value="${fn:length(reportDtoList)}" /></span> entries
 									</span>
 									<div class="pagination-list" id="pagination-container">
 										<div class="pagination-item prev">
@@ -470,6 +470,7 @@
 			document.getElementById("fromDate").value = "";
 			document.getElementById("toDate").value = "";
 			document.getElementById("prevention").value = "";
+			document.getElementById("vaccineType").value = "";
 			const vaccineSelect = document.getElementById("vaccineType");
 			vaccineSelect.selectedIndex = 0;
 			// Đặt giá trị của các trường khác ở đây nếu cần thiết
@@ -536,7 +537,7 @@
 			</c:if>
 
 			<c:if test="${not empty searchDto.vaccineType}">
-				$("#vaccineType").val(${searchDto.vaccineType});
+				$("#vaccineType").val('${searchDto.vaccineType}').change();
 			</c:if>
 		}
 	</script>

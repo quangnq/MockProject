@@ -1,18 +1,15 @@
 package fa.training.repository;
 
-import fa.training.dto.CustomerReportSearchDto;
-import fa.training.entity.CustomerEntity;
+import fa.training.dto.VaccineReportSearchDto;
 import fa.training.entity.VaccineEntity;
+import fa.training.entity.VaccineTypeEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,33 +20,28 @@ public class VaccineRepository {
     @Autowired
     SessionFactory sessionFactory;
 
-    public List<VaccineEntity> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        List<VaccineEntity> vaccineEntityList = session.createQuery("from VaccineEntity", VaccineEntity.class).getResultList();
-        return vaccineEntityList;
-    }
-
-    public List<CustomerEntity> findByFilter(CustomerReportSearchDto customerReportSearchDto) {
+    public List<VaccineEntity> findByFilter(VaccineReportSearchDto searchDto) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<CustomerEntity> criteriaQuery = cb.createQuery(CustomerEntity.class);
-        Root<CustomerEntity> root = criteriaQuery.from(CustomerEntity.class);
+        CriteriaQuery<VaccineEntity> criteriaQuery = cb.createQuery(VaccineEntity.class);
+        Root<VaccineEntity> root = criteriaQuery.from(VaccineEntity.class);
+        Join<VaccineEntity, VaccineTypeEntity> joinVaccineType = root.join("vaccineTypeEntity");
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (StringUtils.isNotEmpty(customerReportSearchDto.getFromDate())) {
-            predicates.add(cb.greaterThanOrEqualTo(root.get("dateOfBirth")
-                    , LocalDate.parse(customerReportSearchDto.getFromDate())));
+        if (StringUtils.isNotEmpty(searchDto.getFromDate())) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get("timeBeginNextInjection")
+                    , LocalDate.parse(searchDto.getFromDate())));
         }
-        if (StringUtils.isNotEmpty(customerReportSearchDto.getToDate())) {
-            predicates.add(cb.lessThanOrEqualTo(root.get("dateOfBirth")
-                    , LocalDate.parse(customerReportSearchDto.getToDate())));
+        if (StringUtils.isNotEmpty(searchDto.getToDate())) {
+            predicates.add(cb.lessThanOrEqualTo(root.get("timeEndNextInjection")
+                    , LocalDate.parse(searchDto.getToDate())));
         }
-        if (StringUtils.isNotBlank(customerReportSearchDto.getAddress())) {
-            predicates.add(cb.like(root.get("address"), "%"+ customerReportSearchDto.getAddress()+"%"));
+        if (StringUtils.isNotBlank(searchDto.getVaccineType()) && !"all".equalsIgnoreCase(searchDto.getVaccineType())) {
+            predicates.add(cb.equal(joinVaccineType.get("vaccineTypeId"), searchDto.getVaccineType()));
         }
-        if (StringUtils.isNotBlank(customerReportSearchDto.getFullName())) {
-            predicates.add(cb.like(root.get("fullName"), "%"+ customerReportSearchDto.getFullName()+"%"));
+        if (StringUtils.isNotBlank(searchDto.getOrigin())) {
+            predicates.add(cb.like(root.get("origin"), "%"+ searchDto.getOrigin()+"%"));
         }
 
         criteriaQuery.select(root).where(predicates.toArray(new Predicate[]{}));

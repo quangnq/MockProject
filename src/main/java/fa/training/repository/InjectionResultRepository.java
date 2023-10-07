@@ -30,7 +30,7 @@ public class InjectionResultRepository {
         return session.createQuery("from InjectionResultEntity", InjectionResultEntity.class).getResultList();
     }
 
-    public List<InjectionResultEntity> findByFilter(InjectionResultReportSearchDto injectionResultReportSearchDto) {
+    public List<InjectionResultEntity> findByFilter(InjectionResultReportSearchDto searchDto) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<InjectionResultEntity> criteriaQuery = cb.createQuery(InjectionResultEntity.class);
@@ -40,19 +40,19 @@ public class InjectionResultRepository {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (StringUtils.isNotEmpty(injectionResultReportSearchDto.getFromDate())) {
+        if (StringUtils.isNotEmpty(searchDto.getFromDate())) {
             predicates.add(cb.greaterThanOrEqualTo(injectionResultEntityRoot.get("injectionDate")
-                    , LocalDate.parse(injectionResultReportSearchDto.getFromDate())));
+                    , LocalDate.parse(searchDto.getFromDate())));
         }
-        if (StringUtils.isNotEmpty(injectionResultReportSearchDto.getToDate())) {
+        if (StringUtils.isNotEmpty(searchDto.getToDate())) {
             predicates.add(cb.lessThanOrEqualTo(injectionResultEntityRoot.get("injectionDate")
-                    , LocalDate.parse(injectionResultReportSearchDto.getToDate())));
+                    , LocalDate.parse(searchDto.getToDate())));
         }
-        if (StringUtils.isNotBlank(injectionResultReportSearchDto.getPrevention())) {
-            predicates.add(cb.like(injectionResultEntityRoot.get("prevention"), "%"+ injectionResultReportSearchDto.getPrevention()+"%"));
+        if (StringUtils.isNotBlank(searchDto.getPrevention())) {
+            predicates.add(cb.like(injectionResultEntityRoot.get("prevention"), "%"+ searchDto.getPrevention()+"%"));
         }
-        if (StringUtils.isNotBlank(injectionResultReportSearchDto.getVaccineType()) && !"all".equalsIgnoreCase(injectionResultReportSearchDto.getVaccineType())) {
-            predicates.add(cb.equal(joinVaccineType.get("vaccineTypeId"), injectionResultReportSearchDto.getVaccineType()));
+        if (StringUtils.isNotBlank(searchDto.getVaccineType()) && !"all".equalsIgnoreCase(searchDto.getVaccineType())) {
+            predicates.add(cb.equal(joinVaccineType.get("vaccineTypeId"), searchDto.getVaccineType()));
         }
 
         criteriaQuery.select(injectionResultEntityRoot).where(predicates.toArray(new Predicate[]{}));

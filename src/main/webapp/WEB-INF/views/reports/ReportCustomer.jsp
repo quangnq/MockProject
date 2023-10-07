@@ -119,7 +119,7 @@
 									</c:forEach>
 								</select>
 							</div>
-							<form id="filter-form">
+							<form id="filter-form" action="${pageContext.request.contextPath}/report/customer" method="get">
 								<div class="report-display">
 									<div class="group-input">
 										<h6 class="title-input">Date of Birth:</h6>
@@ -178,7 +178,7 @@
 											</tr>
 										</thead>
 										<tbody>
-										<c:forEach var="reportDto" items="${customerReportDtoList}">
+										<c:forEach var="reportDto" items="${reportDtoList}">
 											<tr>
 												<td>${reportDto.customerId}</td>
 												<td>${reportDto.fullName}</td>
@@ -195,7 +195,7 @@
 									<span class="text-pagination">Showing
 										<span id="start-page">1</span> to
 										<span id="end-page">5</span> of
-										<span id="total-entries"><c:out value="${fn:length(customerReportDtoList)}" /></span> entries
+										<span id="total-entries"><c:out value="${fn:length(reportDtoList)}" /></span> entries
 									</span>
 									<div class="pagination-list" id="pagination-container">
 										<div class="pagination-item prev">
@@ -240,15 +240,15 @@
 
 		let dataMonth =[];
 		<c:forEach items="${baseChartDto.yearAndMonthValue}" var="entry">
-		// for map để lấy ra các key năm
-		// entry.key : lấy ra key năm
-		// entry.value : lấy ra list value tháng của năm tương ứng
-		dataMonth =[];
-		<c:forEach var="item" items="${entry.value}" varStatus="myIndex">
-		// for list value tháng của năm tương ứng để lấy ra từng value tháng
-		// myIndex.index : lấy ra index
-		dataMonth[${myIndex.index}] = ${item};
-		</c:forEach>
+			// for map để lấy ra các key năm
+			// entry.key : lấy ra key năm
+			// entry.value : lấy ra list value tháng của năm tương ứng
+			dataMonth =[];
+			<c:forEach var="item" items="${entry.value}" varStatus="myIndex">
+				// for list value tháng của năm tương ứng để lấy ra từng value tháng
+				// myIndex.index : lấy ra index
+				dataMonth[${myIndex.index}] = ${item};
+			</c:forEach>
 			// set value tháng vào năm tương ứng
 			mapYearAndMonthValue.set(${entry.key}, dataMonth);
 		</c:forEach>

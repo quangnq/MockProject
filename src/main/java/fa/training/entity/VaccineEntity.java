@@ -25,7 +25,7 @@ public class VaccineEntity {
 	private String indication;
 
 	@Column(name = "NUMBER_OF_INJECTION")
-	private int numberOfInjection;
+	private Integer numberOfInjection;
 
 	@Column(name = "ORIGIN", length=50, columnDefinition = "NVARCHAR(50)")
 	private String origin;

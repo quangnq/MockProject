@@ -22,9 +22,4 @@ public class CustomerService {
         return CustomerReportDto.cloneFromEntityList(customerRepository.findByFilter(searchDto));
     }
 
-    public BaseChartDto getChartDto() {
-        List<ValueOfMonthDto> valueOfMonthDtoList = customerRepository.getValueMonthOfYear();
-        BaseChartDto baseChartDto = new BaseChartDto(valueOfMonthDtoList);
-        return baseChartDto;
-    }
 }
