@@ -1,19 +1,27 @@
 package fa.training.dto;
 
-import fa.training.entity.CustomerEntity;
-import fa.training.entity.InjectionResultEntity;
-import fa.training.entity.VaccineEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import fa.training.entity.CustomerEntity;
+import fa.training.entity.InjectionResultEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * Lớp {@code CustomerReportDto} là một đối tượng DTO (Data Transfer Object) dùng để lưu trữ thông tin về khách hàng
+ * trong báo cáo. Đối tượng này chứa các thuộc tính như mã khách hàng, địa chỉ, ngày sinh, email, họ và tên, giới tính,
+ * số CMND, mật khẩu, số điện thoại, tên đăng nhập và số lần tiêm chủng.
+ *
+ * Ngoài ra, lớp này cung cấp các phương thức để tạo đối tượng DTO từ đối tượng Entity ({@code CustomerEntity}) và danh sách
+ * đối tượng DTO từ danh sách đối tượng Entity.
+ *
+ * @author phinv1
+ * @version 1.0
+ * @since 1 thg 10, 2023
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,8 +46,6 @@ public class CustomerReportDto {
 
 	private String username;
 
-//	private List<InjectionResultEntity> injectionResultEntityList;
-
 	private int numberOfInjection;
 
 	public static CustomerReportDto cloneFromEntity(CustomerEntity entity) {
@@ -54,6 +60,8 @@ public class CustomerReportDto {
 		dto.setPassword(entity.getPassword());
 		dto.setPhone(entity.getPhone());
 		dto.setUsername(entity.getUsername());
+		
+        // Tính tổng số lần tiêm chủng bằng cách lặp qua danh sách InjectionResultEntity
 		int sumInjection = 0;
 		for (InjectionResultEntity injectionResultEntity : entity.getInjectionResultEntityList()) {
 			sumInjection = sumInjection + injectionResultEntity.getNumberOfInjection();
@@ -61,7 +69,13 @@ public class CustomerReportDto {
 		dto.setNumberOfInjection(sumInjection);
 		return dto;
 	}
-
+	
+	 /**
+     * Phương thức tạo một đối tượng {@code CustomerReportDto} từ một đối tượng Entity {@code CustomerEntity}.
+     *
+     * @param entity Đối tượng Entity {@code CustomerEntity} để sao chép thông tin.
+     * @return Đối tượng {@code CustomerReportDto} được tạo ra từ Entity.
+     */
 	public static List<CustomerReportDto> cloneFromEntityList(List<CustomerEntity> entityList) {
 		List<CustomerReportDto> dtoList = new ArrayList<>();
 		for (CustomerEntity entity : entityList) {
@@ -69,4 +83,6 @@ public class CustomerReportDto {
 		}
 		return dtoList;
 	}
+	
+	
 }

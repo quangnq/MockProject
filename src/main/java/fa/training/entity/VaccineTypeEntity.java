@@ -26,6 +26,5 @@ public class VaccineTypeEntity {
 	@OneToMany(mappedBy = "vaccineTypeEntity")
 	List<VaccineEntity> vaccineEntityList;
 
-	//	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private LocalDate ngayDatCoc;
+
 }

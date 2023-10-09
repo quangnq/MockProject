@@ -14,12 +14,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Lớp {@code VaccineRepository} là một thành phần Repository (kho dữ liệu) được sử dụng để truy vấn và tương tác
+ * với cơ sở dữ liệu liên quan đến thông tin vắc-xin. Lớp này chứa phương thức để tìm vắc-xin theo các tiêu chí tìm kiếm.
+ *
+ * @version 1.0
+ * @since 1 thg 10, 2023
+ */
 @Repository
 public class VaccineRepository {
     @Autowired
     SessionFactory sessionFactory;
-
+    
+    /**
+     * Phương thức này được sử dụng để tìm vắc-xin theo các tiêu chí tìm kiếm được chỉ định trong đối tượng
+     * {@code VaccineReportSearchDto}.
+     *
+     * @param searchDto Đối tượng {@code VaccineReportSearchDto} chứa các tiêu chí tìm kiếm.
+     * @return Danh sách các đối tượng {@code VaccineEntity} thỏa mãn tiêu chí tìm kiếm.
+     */
     public List<VaccineEntity> findByFilter(VaccineReportSearchDto searchDto) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();

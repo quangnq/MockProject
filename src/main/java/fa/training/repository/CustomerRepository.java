@@ -1,36 +1,54 @@
 package fa.training.repository;
 
-import fa.training.dto.CustomerReportSearchDto;
-import fa.training.dto.InjectionResultReportSearchDto;
-import fa.training.dto.ValueOfMonthDto;
-import fa.training.entity.CustomerEntity;
-import fa.training.entity.InjectionResultEntity;
-import fa.training.entity.VaccineEntity;
-import fa.training.entity.VaccineTypeEntity;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import fa.training.dto.CustomerReportSearchDto;
+import fa.training.entity.CustomerEntity;
+
+/**
+ * Lớp {@code CustomerRepository} là một thành phần Repository (kho dữ liệu) được sử dụng để truy vấn và tương tác
+ * với cơ sở dữ liệu liên quan đến thông tin khách hàng. Lớp này chứa các phương thức để tìm tất cả khách hàng và
+ * tìm khách hàng theo các tiêu chí tìm kiếm.
+ *
+ * @version 1.0
+ * @since 1 thg 10, 2023
+ */
 @Repository
 public class CustomerRepository {
     @Autowired
     SessionFactory sessionFactory;
-
+    
+    
+    /**
+     * Phương thức này được sử dụng để tìm tất cả các khách hàng trong cơ sở dữ liệu.
+     *
+     * @return Danh sách các đối tượng {@code CustomerEntity}.
+     */
     public List<CustomerEntity> findAll() {
         Session session = sessionFactory.getCurrentSession();
         List<CustomerEntity> customerEntityList = session.createQuery("from CustomerEntity", CustomerEntity.class).getResultList();
         return customerEntityList;
     }
-
+    /**
+     * Phương thức này được sử dụng để tìm khách hàng theo các tiêu chí tìm kiếm được chỉ định trong đối tượng
+     * {@code CustomerReportSearchDto}.
+     *
+     * @param searchDto Đối tượng {@code CustomerReportSearchDto} chứa các tiêu chí tìm kiếm.
+     * @return Danh sách các đối tượng {@code CustomerEntity} thỏa mãn tiêu chí tìm kiếm.
+     */
     public List<CustomerEntity> findByFilter(CustomerReportSearchDto searchDto) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
