@@ -20,7 +20,7 @@
 	<div class="container d-flex justify-content-center align-items-center vh-100">
 		<div class="text-center align center jus">
 			<a href="${pageContext.request.contextPath}">
-			    <i class="fa-solid fa-house"></i>trình wed bị lỗi
+			    <i class="fa-solid fa-house"></i>Trình wed bị lỗi
 			</a>
 		</div>
 	</div>

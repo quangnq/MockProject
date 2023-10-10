@@ -126,6 +126,7 @@ h1.heading-content {
 }
 
 .content-top {	
+  display: flex;
   background: white;
   padding: 28px;
   outline: 3px solid #dddddd;
@@ -140,8 +141,13 @@ h3.text-display-type {
 }
 
 .display-type {
-  display:flex;
+  display:block;
   font-size: 14px;
+}
+
+.display-report-chart{
+	display: flex;
+	padding-top: 9px;
 }
 
 select#year {
@@ -298,4 +304,32 @@ th {
     opacity: 0.5; 
 }
 
+.colum1
+	{
+	width: 50px;
+}
+
+.columPrevention,
+.columFullname,
+.columNum
+.columnVaccinename
+.columnVaccinetype {
+	width:150px;
+}
+
+.columnNo{
+	width: 30px;
+}
+
+.columnNOJ{
+	width: 80px;
+}
+
+.columnorigin{
+	width: 35px;
+}
+
+.form-select{
+	width: 175%;
+}
 

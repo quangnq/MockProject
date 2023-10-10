@@ -35,17 +35,7 @@ import fa.training.entity.VaccineTypeEntity;
 public class InjectionResultRepository {
 
     @Autowired
-    SessionFactory sessionFactory;    
-    
-    /**
-     * Phương thức này được sử dụng để tìm tất cả các kết quả tiêm chủng trong cơ sở dữ liệu.
-     *
-     * @return Danh sách các đối tượng {@code InjectionResultEntity}.
-     */
-    public List<InjectionResultEntity> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from InjectionResultEntity", InjectionResultEntity.class).getResultList();
-    }
+    SessionFactory sessionFactory;
 
     /**
      * Phương thức này được sử dụng để tìm kết quả tiêm chủng theo các tiêu chí tìm kiếm được chỉ định trong đối tượng
