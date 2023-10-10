@@ -5,22 +5,22 @@
 	<display-name>Archetype Created Web Application</display-name>
 
 	<!-- Test push pull git -->
-<!--	<error-page>-->
+<error-page>
 
-<!--		<error-code>404</error-code>-->
+	<error-code>404</error-code>
 
-<!--		<location>/WEB-INF/views/ErrorPage.jsp</location>-->
+	<location>/WEB-INF/views/ErrorPage.jsp</location>
 
-<!--	</error-page>-->
-<!--	-->
-<!--	<error-page>-->
+</error-page>
 
-<!--		<exception-type>java.lang.Exception</exception-type>-->
+	<error-page>
 
-<!--		<location>/WEB-INF/views/ErrorPage.jsp</location>-->
+		<exception-type>java.lang.Exception</exception-type>
 
-<!--	</error-page>-->
-<!--	-->
+		<location>/WEB-INF/views/ErrorPage.jsp</location>
+
+	</error-page> 
+
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

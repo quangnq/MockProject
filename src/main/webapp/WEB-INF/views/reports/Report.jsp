@@ -136,14 +136,14 @@
 										<h6 class="title-input">Inject Date:</h6>
 										<div class="wrapper-input">
 											<label for="fromDate">From:</label>
-											<input id="fromDate" name="fromDate" type="date" class="form-control" />
+											<input id="fromDate" name="fromDate" type="text" class="form-control" />
 										</div>
 									</div>
 									<div class="group-input">
 										<h6 class="title-input">ㅤ</h6>
 										<div class="wrapper-input">
 											<label for="toDate">To:</label>
-											<input id="toDate" name="toDate" type="date" class="form-control" />
+											<input id="toDate" name="toDate" type="text" class="form-control" />										
 										</div>
 									</div>
 									<div class="group-input">
@@ -188,7 +188,7 @@
 												<th class = "colum1">No.</th>
 												<th>Vaccine</th>
 												<th class = "columPrevention">Prevention</th>
-												<th>Customer name</th>
+												<th class = "columnName">Customer name</th>
 												<th>Date of Inject</th>
 												<th>Num of Inject</th>
 											</tr>
@@ -234,14 +234,13 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<script
 		src="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" />"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
 	<script src="<c:url value="/resources/assets/js/chart.js" />"></script>
 	<script src="<c:url value="/resources/bootstrap/js/jquery-3.6.4.min.js" />"></script>
-
 	<script>
 		$("#yearSelector").change(function(){
 			// khi select năm, thì thay đổi data cảu chart và update lại
@@ -350,84 +349,78 @@
 								// Tạo và cập nhật nút pagination
 								updatePagination();
 							}
-
 							// Hàm để cập nhật nút pagination
 							function updatePagination() {
-								paginationContainer.innerHTML = ""; // Xóa nội dung cũ
+							    paginationContainer.innerHTML = ""; // Xóa nội dung cũ
 
-								// Tạo nút "Previous"
-								const prevButton = document
-										.createElement("div");
-								prevButton.classList.add("pagination-item",
-										"prev");
-								prevButton.innerHTML = `<span><i class="fa-solid fa-angles-left"></i></span>`;
-								prevButton.addEventListener("click",
-										function() {
-											if (currentPage > 1) {
-												showPage(currentPage - 1);
-											}
-										});
-								paginationContainer.appendChild(prevButton);
+							    // Tạo nút "Previous"
+							    const prevButton = document.createElement("div");
+							    prevButton.classList.add("pagination-item", "prev");
+							    prevButton.innerHTML = `<span><i class="fa-solid fa-angles-left"></i></span>`;
+							    prevButton.addEventListener("click", function() {
+							        if (currentPage > 1) {
+							            showPage(currentPage - 1);
+							        }
+							    });
 
-								// Tạo nút cho từng trang
-								const maxVisiblePages = 5; // Số trang tối đa có thể hiển thị
-								const halfVisiblePages = Math
-										.floor(maxVisiblePages / 2);
-								const firstVisiblePage = Math.max(currentPage
-										- halfVisiblePages, 1);
-								const lastVisiblePage = Math.min(currentPage
-										+ halfVisiblePages, totalPages);
+							    // Kiểm tra nếu bạn đang ở trang đầu tiên, vô hiệu hóa nút "<<" hoặc ẩn nó
+							    if (currentPage === 1) {
+							        prevButton.classList.add("disabled");
+							    }
 
-								if (firstVisiblePage > 1) {
-									// Add ellipsis if not on the first page
-									const ellipsisButton = document
-											.createElement("div");
-									ellipsisButton.classList
-											.add("pagination-item");
-									ellipsisButton.textContent = "...";
-									paginationContainer
-											.appendChild(ellipsisButton);
-								}
+							    paginationContainer.appendChild(prevButton);
 
-								for (let page = firstVisiblePage; page <= lastVisiblePage; page++) {
-									const pageButton = document
-											.createElement("div");
-									pageButton.classList.add("pagination-item");
-									pageButton.textContent = page;
-									pageButton.addEventListener("click",
-											function() {
-												showPage(page);
-											});
-									if (page === currentPage) {
-										pageButton.classList.add("active");
-									}
-									paginationContainer.appendChild(pageButton);
-								}
+							    // Tạo nút cho từng trang
+							    const maxVisiblePages = 5; // Số trang tối đa có thể hiển thị
+							    const halfVisiblePages = Math.floor(maxVisiblePages / 2);
+							    const firstVisiblePage = Math.max(currentPage - halfVisiblePages, 1);
+							    const lastVisiblePage = Math.min(currentPage + halfVisiblePages, totalPages);
 
-								if (lastVisiblePage < totalPages) {
-									// Add ellipsis if not on the last page
-									const ellipsisButton = document
-											.createElement("div");
-									ellipsisButton.classList
-											.add("pagination-item");
-									ellipsisButton.textContent = "...";
-									paginationContainer
-											.appendChild(ellipsisButton);
-								}
+							    if (firstVisiblePage > 1) {
+							        // Add ellipsis if not on the first page
+							        const ellipsisButton = document.createElement("div");
+							        ellipsisButton.classList.add("pagination-item");
+							        ellipsisButton.textContent = "...";
+							        paginationContainer.appendChild(ellipsisButton);
+							    }
 
-								// Tạo nút "Next"
-								const nextButton = document
-										.createElement("div");
-								nextButton.classList.add("pagination-item",
-										"next");
-								nextButton.innerHTML = `<span><i class="fa-solid fa-angles-right"></i></span>`;
-								nextButton.addEventListener("click",
-										function() {
-											if (currentPage < totalPages) {
-												showPage(currentPage + 1);
-											}
-										});
-								paginationContainer.appendChild(nextButton);
+							    for (let page = firstVisiblePage; page <= lastVisiblePage; page++) {
+							        const pageButton = document.createElement("div");
+							        pageButton.classList.add("pagination-item");
+							        pageButton.textContent = page;
+							        pageButton.addEventListener("click", function() {
+							            showPage(page);
+							        });
+							        if (page === currentPage) {
+							            pageButton.classList.add("active");
+							        }
+							        paginationContainer.appendChild(pageButton);
+							    }
+
+							    if (lastVisiblePage < totalPages) {
+							        // Add ellipsis if not on the last page
+							        const ellipsisButton = document.createElement("div");
+							        ellipsisButton.classList.add("pagination-item");
+							        ellipsisButton.textContent = "...";
+							        paginationContainer.appendChild(ellipsisButton);
+							    }
+
+							    // Tạo nút "Next"
+							    const nextButton = document.createElement("div");
+							    nextButton.classList.add("pagination-item", "next");
+							    nextButton.innerHTML = `<span><i class="fa-solid fa-angles-right"></i></span>`;
+							    nextButton.addEventListener("click", function() {
+							        if (currentPage < totalPages) {
+							            showPage(currentPage + 1);
+							        }
+							    });
+
+							    // Kiểm tra nếu bạn đang ở trang cuối cùng, vô hiệu hóa nút ">>" hoặc ẩn nó
+							    if (currentPage === totalPages) {
+							        nextButton.classList.add("disabled");
+							    }
+
+							    paginationContainer.appendChild(nextButton);
 							}
 
 							// Gọi hàm updatePagination() ban đầu
@@ -542,6 +535,34 @@
 				$("#vaccineType").val('${searchDto.vaccineType}').change();
 			</c:if>
 		}
+	</script>
+	
+	<script>
+	  // Hàm kiểm tra định dạng ngày
+	  function isValidDate(dateString) {
+	    var regexDate = /^\d{4}-\d{2}-\d{2}$/; // Định dạng yyyy-mm-dd
+	    return regexDate.test(dateString);
+	  }
+	
+	  // Lắng nghe sự kiện click trên nút "Filter"
+	  $("#btnFilter").click(function() {
+	    var toDate = $("#toDate").val();
+	    var fromDate = $("#fromDate").val();
+	
+	    // Kiểm tra định dạng ngày và hiển thị thông báo nếu không hợp lệ
+	    if (toDate.trim() && !isValidDate(toDate)) {
+	      alert("To Date is not in the correct format (yyyy-mm-dd).");
+	      return;
+	    }
+	
+	    if (fromDate.trim() && !isValidDate(fromDate)) {
+	      alert("From Date is not in the correct format (yyyy-mm-dd).");
+	      return;
+	    }
+	
+	    // Tiếp tục submit form nếu nhập liệu hợp lệ
+	    $("#filter-form").submit();
+	  });
 	</script>
 
 </body>

@@ -313,7 +313,8 @@ th {
 .columFullname,
 .columNum
 .columnVaccinename
-.columnVaccinetype {
+.columnVaccinetype
+.columnName {
 	width:150px;
 }
 
