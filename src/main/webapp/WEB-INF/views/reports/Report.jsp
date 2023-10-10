@@ -97,9 +97,9 @@
 								</a>
 									<div class="report-hidden">
 										<ul>
-											<li class="menu-item"><a href="#" class="menu-link">Report
+											<li class="menu-item"><a href="${pageContext.request.contextPath}/report/customer" class="menu-link">Report
 													Customer</a></li>
-											<li class="menu-item"><a href="#" class="menu-link">Report
+											<li class="menu-item"><a href="${pageContext.request.contextPath}/report/vaccine" class="menu-link">Report
 													Vaccine</a></li>
 										</ul>
 									</div></li>
@@ -113,16 +113,18 @@
 						<div class="content-top">
 							<div class="display-type">
 								<h3 class="text-display-type">Display type:</h3>
-								<input checked class="form-check-input " type="radio" id="report"
-									name="display_type" value="report" /> <label for="report">Report</label>
-								<input  class="form-check-input" type="radio" id="chart"
-									name="display_type" value="chart" /> <label for="chart">Chart</label>
+								<div class = "display-report-chart">
+									<input checked class="form-check-input " type="radio" id="report"
+										name="display_type" value="report" /> <label for="report">Report</label>
+									<input  class="form-check-input" type="radio" id="chart"
+										name="display_type" value="chart" /> <label for="chart">Chart</label>
+								</div>
 							</div>
 							<div class="chart-display">
 								<label for="yearSelector">Select year:</label> <br />
 								<select class="form-select select-chart" name="yearSelector" id="yearSelector">
 									<c:forEach items="${baseChartDto.yearAndMonthValue}" var="entry">
-										<%--	lặp map value, entry.key get ra key là năm									--%>
+										<%--	Lặp map value, entry.key get ra key là năm									--%>
 										<option value="${entry.key}"><c:out value="${entry.key}" /></option>
 									</c:forEach>
 								</select>
@@ -183,9 +185,9 @@
 									<table id="table-id">
 										<thead>
 											<tr>
-												<th>No.</th>
+												<th class = "colum1">No.</th>
 												<th>Vaccine</th>
-												<th>Prevention</th>
+												<th class = "columPrevention">Prevention</th>
 												<th>Customer name</th>
 												<th>Date of Inject</th>
 												<th>Num of Inject</th>

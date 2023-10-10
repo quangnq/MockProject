@@ -30,18 +30,7 @@ import fa.training.entity.CustomerEntity;
 public class CustomerRepository {
     @Autowired
     SessionFactory sessionFactory;
-    
-    
-    /**
-     * Phương thức này được sử dụng để tìm tất cả các khách hàng trong cơ sở dữ liệu.
-     *
-     * @return Danh sách các đối tượng {@code CustomerEntity}.
-     */
-    public List<CustomerEntity> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        List<CustomerEntity> customerEntityList = session.createQuery("from CustomerEntity", CustomerEntity.class).getResultList();
-        return customerEntityList;
-    }
+
     /**
      * Phương thức này được sử dụng để tìm khách hàng theo các tiêu chí tìm kiếm được chỉ định trong đối tượng
      * {@code CustomerReportSearchDto}.

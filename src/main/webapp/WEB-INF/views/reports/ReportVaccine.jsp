@@ -84,12 +84,12 @@
 								<li class="menu-item"><a href="#" class="menu-link">News
 										<i class="fa-solid fa-plus"></i>
 								</a></li>
-								<li class="menu-item"><a href="#" class="menu-link">Report
+								<li class="menu-item"><a href="${pageContext.request.contextPath}/report" class="menu-link">Report
 										<i class="fa-solid fa-plus"></i>
 								</a>
 									<div class="report-hidden">
 										<ul>
-											<li class="menu-item"><a href="#" class="menu-link">Report
+											<li class="menu-item"><a href="${pageContext.request.contextPath}/report/customer" class="menu-link">Report
 													Customer</a></li>
 											<li class="menu-item"><a href="#"
 												class="menu-link active">Report Vaccine</a></li>
@@ -105,10 +105,12 @@
 						<div class="content-top">
 							<div class="display-type">
 								<h3 class="text-display-type">Display type:</h3>
-								<input  checked class="form-check-input" type="radio" id="report"
-									name="display_type" value="report" /> <label for="report">Report</label>
-								<input  class="form-check-input" type="radio" id="chart"
-									name="display_type" value="chart" /> <label for="chart">Chart</label>
+								<div class = "display-report-chart">
+									<input  checked class="form-check-input" type="radio" id="report"
+										name="display_type" value="report" /> <label for="report">Report</label>
+									<input  class="form-check-input" type="radio" id="chart"
+										name="display_type" value="chart" /> <label for="chart">Chart</label>
+								</div>
 							</div>
 							<div class="chart-display">
 								<label for="yearSelector">Select year:</label> <br />
@@ -177,13 +179,13 @@
 									<table id="table-id">
 										<thead>
 											<tr>
-												<th>No.</th>
-												<th>Vaccine name</th>
-												<th>Vaccine type</th>
-												<th>Num of Inject</th>
+												<th class = "columnNo">No.</th>
+												<th class = "columnVaccinename">Vaccine name</th>
+												<th class = "columnVaccinetype">Vaccine type</th>
+												<th class = "columnNOJ">Num of Inject</th>
 												<th>Begin next inject date</th>
 												<th>End next inject date</th>
-												<th>Origin</th>
+												<th class = "columnorigin">Origin</th>
 											</tr>
 										</thead>
 										<tbody>
